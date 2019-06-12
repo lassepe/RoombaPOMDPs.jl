@@ -18,7 +18,7 @@ State of a Roomba.
 - `x::Float64` x location in meters
 - `y::Float64` y location in meters
 - `theta::Float64` orientation in radians
-- `status::Bool` indicator whether robot has reached goal state or stairs
+- `status::Float64` indicator whether robot has reached goal state or stairs
 """
 struct RoombaState <: FieldVector{4, Float64}
     x::Float64
@@ -64,7 +64,7 @@ Define the Roomba MDP.
     v_max::Float64  = 10.0  # m/s
     om_max::Float64 = 1.0   # rad/s
     dt::Float64     = 0.5   # s
-    contact_pen::Float64 = -1.0
+    contact_pen::Float64 = -0.1
     time_pen::Float64 = -0.1
     goal_reward::Float64 = 10
     stairs_penalty::Float64 = -10

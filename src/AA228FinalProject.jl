@@ -33,7 +33,9 @@ export
     wrap_to_pi,
     ContinuousRoombaStateSpace,
     DiscreteRoombaStateSpace,
-    render
+    render,
+    mdp,
+    wall_contact
 
 include("line_segment_utils.jl")
 include("env_room.jl")
