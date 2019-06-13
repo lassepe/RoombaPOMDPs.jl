@@ -54,7 +54,7 @@ function setup_sim(policy_key::String, i_run::Int)
               :policy_key => policy_key)
     policy = policy_map(m, default_action, copy(rng))[policy_key]
     # compose the sim object
-    return Sim(m, policy, filter; rng=copy(rng), max_steps=5, metadata=md)
+    return Sim(m, policy, filter; rng=copy(rng), max_steps=500, metadata=md)
 end
 
 function parallel_sim(runs::UnitRange, policy_keys)
