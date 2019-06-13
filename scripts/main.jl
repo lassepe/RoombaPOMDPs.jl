@@ -40,7 +40,7 @@ function policy_map(m::RoombaPOMDP, default_action::RoombaAct, rng::AbstractRNG)
                     planner = solve(solver, m)
                 end,
                 # Mode controlled heuristic policy
-                "MostLikelyStateController" => FunctionPolicy(first_up)
+                "MostLikelyStateController" => FirstUp(m, default_action)
                )
 end
 

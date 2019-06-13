@@ -1,14 +1,21 @@
+import POMDPs: action
+
+struct FirstUp <: Policy
+    m::RoombaPOMDP
+    speed::Float64
+end
+FirstUp(m::RoombaPOMDP, default_action::RoombaAct) = FirstUp(m, default_action.v)
+
 # the fully observable version of the first up policy
-function first_up(s::RoombaState)
+function POMDPs.action(p::FirstUp, s::RoombaState)
   # otherwise we first try to align in vertical direction
   # then in horizontal direction (to cope for the L-shape)
-  goal_x, goal_y = goal_xy
+  goal_x, goal_y = get_goal_xy(p.m)
   x,y,th = s[1:3]
 
   # apply a proportional controller with prioroty on the vertical direction
   Kprop = 1.0
   om = 0
-  v = 2
 
   if goal_y - y > 4.5
     # first move up
@@ -19,9 +26,9 @@ function first_up(s::RoombaState)
     del_angle = wrap_to_pi(ang_to_goal - th)
     om  = Kprop * del_angle
   end
-  return RoombaAct(v, om)
+  return RoombaAct(p.speed, om)
 end
 
 # the partially observable version of the policy controlling the robot
 # based on the most likely state in the belief
-first_up(b::AbstractParticleBelief) = first_up(mode(b))
+POMDPs.action(p::FirstUp, b::AbstractParticleBelief) = POMDPs.action(p, mode(b))
