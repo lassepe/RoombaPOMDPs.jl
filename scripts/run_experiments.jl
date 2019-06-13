@@ -1,6 +1,6 @@
-using ProgressMeter
-
 # setup parallelization
+using CSV
+using Dates
 using Distributed
 const desired_nworkers = 10
 const IN_SLURM = "SLURM_JOBID" in keys(ENV)
@@ -22,9 +22,17 @@ end
     include("$(@__DIR__)/main.jl")
 end
 
-# a simple wrapper to call things in a parallelized fashion with progress meter
-function parallel_run(runs::UnitRange)
-    progress_pmap(runs) do i_run
-        run(i_run; show_progress=false)
-    end
+function main()
+    policy_keys = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds", "POMCPOW_analyticValueEstimate"]
+    @info "Running simulations..."
+    data = parallel_sim(1:1000, policy_keys)
+    @info "Writing data..."
+    result_dir = realpath("$(@__DIR__)/../results/")
+    file_name = "sim_results-$(gethostname())-$(now())-$(join(policy_keys, "_")).csv"
+    file = CSV.write(joinpath(result_dir, file_name), data)
+    @info "All done! Wrote results to $file."
 end
+
+main()
+
+rmprocs(pids)

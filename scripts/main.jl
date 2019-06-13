@@ -57,13 +57,11 @@ function setup_sim(policy_key::String, i_run::Int)
     return Sim(m, policy, filter; rng=copy(rng), max_steps=5, metadata=md)
 end
 
-function run_experiments(runs::UnitRange)
-    policy_keys = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds", "POMCPOW_analyticValueEstimate"]
-
+function parallel_sim(runs::UnitRange, policy_keys)
     # setup all simulation instances
     sims = vec([setup_sim(pk, i_run) for pk in policy_keys, i_run in runs])
 
-    return run_parallel(sims) do sim::Sim, hist::SimHistory
+    return run(sims) do sim::Sim, hist::SimHistory
         return [:n_steps => n_steps(hist),
                 :discounted_reward => discounted_reward(hist),
                 :final_state_type => final_state_type(problem(sim), hist)]
