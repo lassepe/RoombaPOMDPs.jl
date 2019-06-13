@@ -25,7 +25,7 @@ end
 function main()
     policy_keys = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds", "POMCPOW_analyticValueEstimate"]
     @info "Running simulations..."
-    data = parallel_sim(1:100, policy_keys)
+    data = parallel_sim(101:200, policy_keys)
     @info "Writing data..."
     result_dir = realpath("$(@__DIR__)/../results/")
     file_name = "sim_results-$(gethostname())-$(now())-$(join(policy_keys, "_")).csv"
