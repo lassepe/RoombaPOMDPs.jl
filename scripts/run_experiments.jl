@@ -2,7 +2,7 @@
 using CSV
 using Dates
 using Distributed
-const desired_nworkers = 35
+const desired_nworkers = 10
 const IN_SLURM = "SLURM_JOBID" in keys(ENV)
 IN_SLURM && using ClusterManagers
 if IN_SLURM
@@ -23,9 +23,10 @@ end
 end
 
 function main()
-    policy_keys = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds", "POMCPOW_analyticValueEstimate"]
+    # policy_keys = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds", "POMCPOW_analyticValueEstimate"]
+    policy_keys = ["MostLikelyStateController"]
     @info "Running simulations..."
-    data = parallel_sim(1:100, policy_keys)
+    data = parallel_sim(101:200, policy_keys)
     @info "Writing data..."
     result_dir = realpath("$(@__DIR__)/../results/")
     file_name = "sim_results-$(gethostname())-$(now())-$(join(policy_keys, "_")).csv"
