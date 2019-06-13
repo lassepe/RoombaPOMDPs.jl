@@ -1,8 +1,5 @@
-
-# define a better rollout policy that first goes up and then right (highly overfitted to this problem)
-struct FirstUp <: Policy end
-
-function POMDPs.action(p::FirstUp, s::RoombaState)::RoombaAct
+# the fully observable version of the first up policy
+function first_up(s::RoombaState)
   # otherwise we first try to align in vertical direction
   # then in horizontal direction (to cope for the L-shape)
   goal_x, goal_y = goal_xy
@@ -10,9 +7,8 @@ function POMDPs.action(p::FirstUp, s::RoombaState)::RoombaAct
 
   # apply a proportional controller with prioroty on the vertical direction
   Kprop = 1.0
-
   om = 0
-  v = 5
+  v = 2
 
   if goal_y - y > 4.5
     # first move up
@@ -26,16 +22,6 @@ function POMDPs.action(p::FirstUp, s::RoombaState)::RoombaAct
   return RoombaAct(v, om)
 end
 
-function POMDPs.action(p::FirstUp, b::AbstractParticleBelief{RoombaState})::RoombaAct
-  # if the covariance of the belief is too high, we turn aroundn for localization
-  cov_diag = get_cov_diag(b)
-  # increment the time counter
-  if cov_diag > 1
-      return RoombaAct(0., omlist[1]) # (v, om)
-  end
-
-  # otherwise we first try to align in vertical direction
-  # then in horizontal direction (to cope for the L-shape)
-  s = mean(b)
-  return POMDPs.action(p, s)
-end
+# the partially observable version of the policy controlling the robot
+# based on the most likely state in the belief
+first_up(b::AbstractParticleBelief) = first_up(mode(b))

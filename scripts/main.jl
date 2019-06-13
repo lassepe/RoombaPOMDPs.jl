@@ -11,6 +11,7 @@ using POMDPSimulators
 
 include("$(@__DIR__)/value_estimates.jl")
 include("$(@__DIR__)/utils.jl")
+include("$(@__DIR__)/heuristic_policies.jl")
 # Interesting example:
 # * 111
 
@@ -37,7 +38,9 @@ function policy_map(m::RoombaPOMDP, default_action::RoombaAct, rng::AbstractRNG)
                                            k_observation=5, alpha_observation=1/30, enable_action_pw=false, check_repeat_obs=true,
                                            check_repeat_act=true, estimate_value=estimate_value, rng=copy(rng))
                     planner = solve(solver, m)
-                end
+                end,
+                # Mode controlled heuristic policy
+                "MostLikelyStateController" => FunctionPolicy(first_up)
                )
 end
 
