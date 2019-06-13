@@ -61,7 +61,7 @@ function parallel_sim(runs::UnitRange, policy_keys)
     # setup all simulation instances
     sims = vec([setup_sim(pk, i_run) for pk in policy_keys, i_run in runs])
 
-    return run(sims) do sim::Sim, hist::SimHistory
+    return run_parallel(sims) do sim::Sim, hist::SimHistory
         return [:n_steps => n_steps(hist),
                 :discounted_reward => discounted_reward(hist),
                 :final_state_type => final_state_type(problem(sim), hist)]
