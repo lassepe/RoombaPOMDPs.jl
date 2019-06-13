@@ -3,3 +3,6 @@ gifs/*
 
 results/*
 !results/.gitkeep
+
+bash_scripts/savio_config/*
+!bash_scripts/savio_config/.gitkeep
