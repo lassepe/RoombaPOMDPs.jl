@@ -19,7 +19,7 @@ function plot_results(data::DataFrame)
                  ymin=(df_stats.MeanValue - df_stats.SEMValue), ymax=(df_stats.MeanValue + df_stats.SEMValue),
                  color=df_stats.policy_key, Geom.point, Geom.errorbar, Guide.xlabel("Compute"), Guide.ylabel("Value"))
 
-    value_boxplot = plot(data, x=:policy_key, y=:discounted_reward, color=:policy_key, Geom.violin)
+    # value_boxplot = plot(data, x=:policy_key, y=:discounted_reward, color=:policy_key, Geom.violin)
 
     final_state_type_plot = plot(data, xgroup=:policy_key, x=:final_state_type,
                                  # color=:policy_key,
@@ -28,5 +28,5 @@ function plot_results(data::DataFrame)
                                               minor_label_font_size=8pt,
                                               key_position=:none))
 
-    display(vstack(value_boxplot, final_state_type_plot))
+    display(vstack(value_errorbar_plot, final_state_type_plot))
 end
