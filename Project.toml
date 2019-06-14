@@ -4,6 +4,7 @@ uuid = "fe2df5ea-4d44-4e5a-a895-9dbc87b19b37"
 [deps]
 AEMS = "3b430cce-3194-5812-b203-bf9e73c3e836"
 ARDESPOT = "d96c9ae4-3372-47d5-8a88-316ae77be8cf"
+ArgParse = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"
 Base64 = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 BasicPOMCP = "d721219e-3fc6-5570-a8ef-e5402f47c49e"
 BeliefUpdaters = "8bb6e9a1-7d73-552c-a44a-e5dc5634aac4"
