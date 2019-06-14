@@ -78,6 +78,7 @@ function parallel_sim(runs::UnitRange, policy_keys)
     return run_parallel(sims) do sim::Sim, hist::SimHistory
         return [:n_steps => n_steps(hist),
                 :discounted_reward => discounted_reward(hist),
+                :undiscounted_reward => undiscounted_reward(hist),
                 :final_state_type => final_state_type(problem(sim), hist)]
     end
 end
