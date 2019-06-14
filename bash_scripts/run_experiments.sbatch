@@ -21,4 +21,4 @@ module load julia/1.1.0
 # run the experiments. The ClusterMangers interace will make sure that
 # available resources from within this batch configuration are being used to
 # launch workers
-julia --project src/run_experiments.jl
+julia --project scripts/run_experiments.jl $@
