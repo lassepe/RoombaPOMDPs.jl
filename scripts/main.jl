@@ -59,7 +59,7 @@ function setup_sim(policy_key::String, i_run::Int)
     rng = MersenneTwister(i_run)
     # problem setup
     speed = 2.0
-    as = vec([RoombaAct(v, om) for v in (0.0, speed), om in (-1.0, 0.0, 1.0)])
+    as = vec([RoombaAct(v, om) for v in (speed,), om in (-1.0, 0.0, 1.0)])
     m = RoombaPOMDP(sensor=Bumper(), mdp=RoombaMDP(config=1, aspace=as));
     spf = SimpleParticleFilter(m, BumperResampler(6000), rng=copy(rng))
     default_action = RoombaAct(speed, 0.0)
