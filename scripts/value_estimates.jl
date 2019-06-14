@@ -38,14 +38,10 @@ function value_estimate(m::RoombaPOMDP, s::RoombaState, b=Nothing, ::Int=0)
         return mdp(m).stairs_penalty
     end
 
-    goal_x, goal_y = get_goal_xy(m)
-    # in the lower part we use manhattan distance. Otherwise euclidean.
-    p = goal_y - s.y > 4.5 ? 1 : 2
-
     min_steps = Int(floor(steps_to_goal(m, s, max_dxy, p)))
     # compute the corresponding reward
     # there should be some analytic formula for this
     return steps_to_reward_estimate(m, min_steps)
 end
 
-maximum_step(m) = maximum(getproperty.(actions(m), :v)) * mdp(m).dt
+maximum_step(m) = maximum(getproperty.(actions(m), :v))
