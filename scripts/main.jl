@@ -60,11 +60,6 @@ function setup_sim(policy_key::String, i_run::Int)
     return Sim(m, policy, filter; rng=copy(rng), max_steps=300, metadata=md)
 end
 
-function debug(sim::Sim)
-    hist = simulate(sim)
-    makegif(problem(sim), hist; filename="$(@__DIR__)/../gifs/debug.gif")
-end
-
 function parallel_sim(runs::UnitRange, policy_keys)
     # setup all simulation instances
     sims = vec([setup_sim(pk, i_run) for pk in policy_keys, i_run in runs])
