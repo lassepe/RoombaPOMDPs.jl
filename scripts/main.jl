@@ -19,14 +19,20 @@ function policy_map(m::RoombaPOMDP, default_action::RoombaAct, rng::AbstractRNG)
     return Dict(
                 # DESPOT setup with default policy rollout for lower bound estimate and constant upper bound
                 "DESPOT_defaultPolicy" => begin
-                    rollout_bounds = IndependentBounds(DefaultPolicyLB(FunctionPolicy(x->default_action)), 10.0, check_terminal=true)
-                    solver = DESPOTSolver(K=20, T_max=1, default_action=default_action, bounds=rollout_bounds, rng=copy(rng))
+                    rollout_policy = FunctionPolicy(x->default_action)
+                    rollout_bounds = IndependentBounds(DefaultPolicyLB(rollout_policy), 10.0, check_terminal=true)
+                    solver = DESPOTSolver(K=20, D=150, T_max=1, default_action=default_action, bounds=rollout_bounds, rng=copy(rng))
                     planner = solve(solver, m)
                 end,
                 # DESPOT setup with analytic bound estimate
                 "DESPOT_analyticBounds" => begin
                     analytic_bounds = IndependentBounds(lower_bound, upper_bound, check_terminal=true)
-                    solver = DESPOTSolver(K=20, T_max=1, default_action=default_action, bounds=analytic_bounds, rng=copy(rng))
+                    solver = DESPOTSolver(K=20, D=150, T_max=1, default_action=default_action, bounds=analytic_bounds, rng=copy(rng))
+                    planner = solve(solver, m)
+                end,
+                "DESPOT_constantBounds" => begin
+                    analytic_bounds = IndependentBounds(-100, 10, check_terminal=true)
+                    solver = DESPOTSolver(K=20, D=150, T_max=1, default_action=default_action, bounds=analytic_bounds, rng=copy(rng))
                     planner = solve(solver, m)
                 end,
                 # POMCPOW setup with analytic value estimate
@@ -34,7 +40,7 @@ function policy_map(m::RoombaPOMDP, default_action::RoombaAct, rng::AbstractRNG)
                     solver = POMCPOWSolver(default_action=default_action,
                                            tree_queries=100000,
                                            max_time=1.0,
-                                           max_depth=100, criterion=MaxUCB(20),
+                                           max_depth=150, criterion=MaxUCB(20),
                                            k_observation=5, alpha_observation=1/30, enable_action_pw=false, check_repeat_obs=true,
                                            check_repeat_act=true, estimate_value=estimate_value, rng=copy(rng))
                     planner = solve(solver, m)

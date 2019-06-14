@@ -29,7 +29,7 @@ function upper_bound(m::RoombaPOMDP, b::AbstractParticleBelief)
     return steps_to_reward_estimate(m, min_steps)
 end
 
-function estimate_value(m::RoombaPOMDP, s::RoombaState, b, ::Int)
+function estimate_value(m::RoombaPOMDP, s::RoombaState, b=Nothing, ::Int=0)
     # get the maximum translational speed the robot can travel at
     max_dxy = maximum_step(m)
     # compute the best case number of steps to the goal (for the particle close
