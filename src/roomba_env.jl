@@ -64,7 +64,7 @@ Define the Roomba MDP.
     v_max::Float64  = 10.0  # m/s
     om_max::Float64 = 1.0   # rad/s
     dt::Float64     = 0.5   # s
-    contact_pen::Float64 = -0.01
+    contact_pen::Float64 = -0.1
     time_pen::Float64 = -0.1
     goal_reward::Float64 = 10
     stairs_penalty::Float64 = -10
