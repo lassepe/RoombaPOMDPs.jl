@@ -19,8 +19,7 @@ function policy_map(m::RoombaPOMDP, default_action::RoombaAct, rng::AbstractRNG)
     return Dict(
                 # DESPOT setup with default policy rollout for lower bound estimate and constant upper bound
                 "DESPOT_defaultPolicy" => begin
-                    default = FunctionPolicy(x->default_action)
-                    rollout_bounds = IndependentBounds(DefaultPolicyLB(default), 10.0, check_terminal=true)
+                    rollout_bounds = IndependentBounds(DefaultPolicyLB(FunctionPolicy(x->default_action)), 10.0, check_terminal=true)
                     solver = DESPOTSolver(K=20, T_max=1, default_action=default_action, bounds=rollout_bounds, rng=copy(rng))
                     planner = solve(solver, m)
                 end,
