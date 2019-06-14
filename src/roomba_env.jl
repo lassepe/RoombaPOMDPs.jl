@@ -64,7 +64,7 @@ Define the Roomba MDP.
     v_max::Float64  = 10.0  # m/s
     om_max::Float64 = 1.0   # rad/s
     dt::Float64     = 0.5   # s
-    contact_pen::Float64 = -0.1
+    contact_pen::Float64 = -0.01
     time_pen::Float64 = -0.1
     goal_reward::Float64 = 10
     stairs_penalty::Float64 = -10
@@ -417,7 +417,7 @@ POMDPs.n_observations(m::DiscreteLidarPOMDP) = length(m.sensor.disc_points) + 1
 POMDPs.observations(m::DiscreteLidarPOMDP) = vec(1:n_observations(m))
 
 # define discount factor
-POMDPs.discount(m::RoombaModel) = 0.95
+POMDPs.discount(m::RoombaModel) = 0.999
 
 # struct to define an initial distribution over Roomba states
 struct RoombaInitialDistribution{M<:RoombaModel}
