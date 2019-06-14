@@ -417,7 +417,7 @@ POMDPs.n_observations(m::DiscreteLidarPOMDP) = length(m.sensor.disc_points) + 1
 POMDPs.observations(m::DiscreteLidarPOMDP) = vec(1:n_observations(m))
 
 # define discount factor
-POMDPs.discount(m::RoombaModel) = 0.999
+POMDPs.discount(m::RoombaModel) = 0.95
 
 # struct to define an initial distribution over Roomba states
 struct RoombaInitialDistribution{M<:RoombaModel}
