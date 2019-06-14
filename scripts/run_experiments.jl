@@ -18,8 +18,8 @@ function parse_commandline()
             help = "The policy keys to be used"
             arg_type = Vector{String}
             eval_arg = true
-            default = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds", "DESPOT_constantBounds",
-                       "POMCPOW_analyticValueEstimate",
+            default = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds",
+                       "POMCPOW_rolloutEstimate", "POMCPOW_analyticValueEstimate",
                        "MostLikelyStateController"]
     end
 
