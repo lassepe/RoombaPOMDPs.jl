@@ -32,7 +32,8 @@ function policy_map(m::RoombaPOMDP, default_action::RoombaAct, rng::AbstractRNG)
                 end,
                 # POMCPOW setup with analytic value estimate
                 "POMCPOW_analyticValueEstimate" => begin
-                    solver = POMCPOWSolver(tree_queries=100000,
+                    solver = POMCPOWSolver(default_action=default_action,
+                                           tree_queries=100000,
                                            max_time=1.0,
                                            max_depth=100, criterion=MaxUCB(20),
                                            k_observation=5, alpha_observation=1/30, enable_action_pw=false, check_repeat_obs=true,
