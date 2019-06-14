@@ -6,13 +6,6 @@ using Distributed
 
 import Base: convert
 
-function Base.convert(::Type{UnitRange{T}}, s::String) where T
-    limits_string = split(s, ":")
-    @assert length(limits_string) == 2
-    l, u = parse.(T, limits_string)
-    return l:u
-end
-
 function parse_commandline()
     s = ArgParseSettings()
     @add_arg_table s begin
@@ -20,13 +13,19 @@ function parse_commandline()
             help = "The runs to perform."
             arg_type = UnitRange{Int}
             required = true
+            eval_arg = true
+        "--policy_keys", "-p"
+            help = "The policy keys to be used"
+            arg_type = Vector{String}
+            eval_arg = true
+            default = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds", "POMCPOW_analyticValueEstimate", "MostLikelyStateController"]
     end
 
     return parse_args(s)
 end
 
 function desired_nworkers()
-    desired_nworkers = Dict("lassepe-x1" => 1, "Dragan-DGX-Station" => 35)
+    desired_nworkers = Dict("lassepe-x1" => 10, "Dragan-DGX-Station" => 35)
     # lookup host name in desired worker map. Otherwise, don't parallelize
     return get(desired_nworkers, gethostname(), 1)
 end
@@ -55,9 +54,7 @@ end
 function main()
     parsed_args = parse_commandline()
     runs = parsed_args["runs"]
-
-    # policy_keys = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds", "POMCPOW_analyticValueEstimate"]
-    policy_keys = ["MostLikelyStateController"]
+    policy_keys = parsed_args["policy_keys"]
 
     @info "Running simulations..."
     data = parallel_sim(runs, policy_keys)
