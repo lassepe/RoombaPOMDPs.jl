@@ -1,6 +1,9 @@
+using LinearAlgebra
+using AA228FinalProject
+
 is_failure_state(s::RoombaState) = s.status == -1.0
 
-function manhattan_steps_to_goal(m::RoombaModel, s::RoombaState, max_dxy::Real)
+function steps_to_goal(m::RoombaModel, s::RoombaState, max_dxy::Real, p::Real=1)
     @assert max_dxy > 0
     if s.status == 1.0
         # we already are at the goal, no more steps to take
@@ -10,9 +13,9 @@ function manhattan_steps_to_goal(m::RoombaModel, s::RoombaState, max_dxy::Real)
     end
     # the goal position
     gx, gy = get_goal_xy(m)
-    manhattan_dist_to_goal = abs(s.x - gx) + abs(s.y - gy)
+    dist_to_goal = norm((s.x - gx, s.y - gy), p)
     # estimated number of steps to goal:
-    return manhattan_dist_to_goal / max_dxy
+    return dist_to_goal / max_dxy
 end
 
 function steps_to_reward_estimate(m, n_steps::Int)
