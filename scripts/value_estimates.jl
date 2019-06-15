@@ -38,7 +38,7 @@ function value_estimate(m::RoombaPOMDP, s::RoombaState, b=Nothing, ::Int=0)
         return mdp(m).stairs_penalty
     end
 
-    min_steps = Int(floor(steps_to_goal(m, s, max_dxy, p)))
+    min_steps = Int(floor(steps_to_goal(m, s, max_dxy, 1)))
     # compute the corresponding reward
     # there should be some analytic formula for this
     return steps_to_reward_estimate(m, min_steps)
