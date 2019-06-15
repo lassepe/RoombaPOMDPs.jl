@@ -252,9 +252,9 @@ uuid = "8ba89e20-285c-5b6f-9357-94700520ee1b"
 
 [[Distributions]]
 deps = ["LinearAlgebra", "PDMats", "Printf", "QuadGK", "Random", "SpecialFunctions", "Statistics", "StatsBase", "StatsFuns"]
-git-tree-sha1 = "4ae0ff1a3a556383f7b1b004f5fb964b26ac96c9"
+git-tree-sha1 = "56a158bc0abe4af5d4027af2275fde484261ca6d"
 uuid = "31c24e10-a181-5473-b8eb-7969acd0382f"
-version = "0.20.0"
+version = "0.19.2"
 
 [[DocStringExtensions]]
 deps = ["LibGit2", "Markdown", "Pkg", "Test"]
@@ -299,10 +299,12 @@ deps = ["Random"]
 uuid = "9fa8497b-333b-5362-9e8d-4d0656e87820"
 
 [[Gadfly]]
-deps = ["Base64", "CategoricalArrays", "Colors", "Compat", "Compose", "Contour", "CoupledFields", "DataStructures", "Dates", "Distributions", "DocStringExtensions", "Hexagons", "IndirectArrays", "IterTools", "JSON", "Juno", "KernelDensity", "LibGit2", "LinearAlgebra", "Loess", "Measures", "Printf", "Random", "Requires", "Showoff", "Statistics", "StatsBase", "Test"]
-git-tree-sha1 = "ee709588c71eb62ce53cecf5a594bdefd6f2a9be"
+deps = ["Base64", "CategoricalArrays", "Colors", "Compat", "Compose", "Contour", "CoupledFields", "DataStructures", "Dates", "Distributions", "DocStringExtensions", "Hexagons", "IndirectArrays", "IterTools", "JSON", "Juno", "KernelDensity", "LinearAlgebra", "Loess", "Measures", "Printf", "Random", "Requires", "Showoff", "Statistics"]
+git-tree-sha1 = "f63603aa784fd8b4da7f9a581009197c396d0199"
+repo-rev = "master"
+repo-url = "https://github.com/GiovineItalia/Gadfly.jl.git"
 uuid = "c91e804a-d5a3-530f-b6f0-dfbca275c004"
-version = "1.0.1"
+version = "1.1.0"
 
 [[Glob]]
 deps = ["Compat", "Test"]
@@ -629,9 +631,9 @@ version = "0.10.3"
 
 [[Parsers]]
 deps = ["Dates", "Test"]
-git-tree-sha1 = "eaed2db080700f1013f0fc05667ecb2a082265a1"
+git-tree-sha1 = "db2b35dedab3c0e46dc15996d170af07a5ab91c9"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "0.3.5"
+version = "0.3.6"
 
 [[ParticleFilters]]
 deps = ["LinearAlgebra", "POMDPModelTools", "POMDPPolicies", "POMDPs", "Random", "Statistics", "StatsBase", "Test"]
