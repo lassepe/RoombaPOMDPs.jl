@@ -4,10 +4,10 @@ include("$(@__DIR__)/value_estimates.jl")
 include("$(@__DIR__)/roomba_search.jl")
 
 struct FirstUp <: Policy
-    m::RoombaModel
+    m::RoombaMDP
     speed::Float64
 end
-FirstUp(m::RoombaModel, default_action::RoombaAct) = FirstUp(m, default_action.v)
+FirstUp(m::RoombaMDP, default_action::RoombaAct) = FirstUp(m, default_action.v)
 
 # the fully observable version of the first up policy
 function POMDPs.action(p::FirstUp, s::RoombaState)
@@ -32,16 +32,12 @@ function POMDPs.action(p::FirstUp, s::RoombaState)
   return RoombaAct(p.speed, om)
 end
 
-# the partially observable version of the policy controlling the robot
-# based on the most likely state in the belief
-POMDPs.action(p::FirstUp, b::AbstractParticleBelief) = POMDPs.action(p, mode(b))
-
 struct MLMPC <: Policy
-    m::RoombaModel
+    m::RoombaMDP
     default_action::RoombaAct
 end
 
-function POMDPs.action(p::MLMPC, s::RoombaState, debug::Bool=false)
+function POMDPs.action(p::MLMPC, s::RoombaState, debug::Bool=true)
     goal_x, goal_y = get_goal_xy(p.m)
     heuristic = (s::RoombaState) -> -value_estimate(p.m, s)
     roomba_navigation_problem = RoombaNavigationProblem(p.m, s)
@@ -57,5 +53,9 @@ function POMDPs.action(p::MLMPC, s::RoombaState, debug::Bool=false)
         ([p.default_action], [roomba_navigation_problem.start_state])
     end
 
-    return first(aseq)
+    return length(aseq) > 0 ? first(aseq) : p.default_action
 end
+
+# the partially observable version of the policy controlling the robot
+# based on the most likely state in the belief
+POMDPs.action(p::Policy, b::AbstractParticleBelief) = POMDPs.action(p, mode(b))

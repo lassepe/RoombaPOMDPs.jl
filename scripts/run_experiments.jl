@@ -20,7 +20,7 @@ function parse_commandline()
             eval_arg = true
             default = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds",
                        "POMCPOW_rolloutEstimate", "POMCPOW_analyticValueEstimate",
-                       "MostLikelyStateController"]
+                       "MostLikelyStateController", "MLMPC"]
         "--fully_observed"
             help = "Flag to indicate that a fully observed simulation is to be run."
             action = :store_true

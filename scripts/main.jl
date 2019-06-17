@@ -12,7 +12,7 @@ using POMDPSimulators
 
 include("$(@__DIR__)/value_estimates.jl")
 include("$(@__DIR__)/utils.jl")
-include("$(@__DIR__)/heuristic_policies.jl")
+include("$(@__DIR__)/ml_heuristic_policies.jl")
 # Interesting example:
 # * 111
 
@@ -52,9 +52,9 @@ function policy_map(m::RoombaModel, default_action::RoombaAct, rng::AbstractRNG,
         return solve(solver, m)
     elseif key == "MostLikelyStateController"
         # Mode controlled heuristic policy
-        return FirstUp(m, default_action)
+        return FirstUp(mdp(m), default_action)
     elseif key == "MLMPC"
-        return MLMPC(m, default_action)
+        return MLMPC(mdp(m), default_action)
     else
         error("Illegal policy key.")
     end
