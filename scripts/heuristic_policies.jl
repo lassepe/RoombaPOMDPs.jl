@@ -1,5 +1,8 @@
 import POMDPs: action
 
+include("$(@__DIR__)/value_estimates.jl")
+include("$(@__DIR__)/roomba_search.jl")
+
 struct FirstUp <: Policy
     m::RoombaModel
     speed::Float64
@@ -32,3 +35,27 @@ end
 # the partially observable version of the policy controlling the robot
 # based on the most likely state in the belief
 POMDPs.action(p::FirstUp, b::AbstractParticleBelief) = POMDPs.action(p, mode(b))
+
+struct MLMPC <: Policy
+    m::RoombaModel
+    default_action::RoombaAct
+end
+
+function POMDPs.action(p::MLMPC, s::RoombaState, debug::Bool=false)
+    goal_x, goal_y = get_goal_xy(p.m)
+    heuristic = (s::RoombaState) -> -value_estimate(p.m, s)
+    roomba_navigation_problem = RoombaNavigationProblem(p.m, s)
+
+    aseq::Vector{RoombaAct}, sseq::Vector{RoombaState} = try
+        weighted_astar_search(roomba_navigation_problem, heuristic, 0.2)
+    catch e
+        if !(e isa InfeasibleSearchProblemError)
+            rethrow(e)
+        elseif debug
+            @warn "No solution found. Using default action."
+        end
+        ([p.default_action], [roomba_navigation_problem.start_state])
+    end
+
+    return first(aseq)
+end

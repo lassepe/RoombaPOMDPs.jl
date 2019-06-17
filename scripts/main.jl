@@ -53,6 +53,8 @@ function policy_map(m::RoombaModel, default_action::RoombaAct, rng::AbstractRNG,
     elseif key == "MostLikelyStateController"
         # Mode controlled heuristic policy
         return FirstUp(m, default_action)
+    elseif key == "MLMPC"
+        return MLMPC(m, default_action)
     else
         error("Illegal policy key.")
     end
