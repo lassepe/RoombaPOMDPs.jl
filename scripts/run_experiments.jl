@@ -9,18 +9,21 @@ import Base: convert
 function parse_commandline()
     s = ArgParseSettings()
     @add_arg_table s begin
-        "--runs", "-r"
+        "--runs"
             help = "The runs to perform."
             arg_type = UnitRange{Int}
             required = true
             eval_arg = true
-        "--policy_keys", "-p"
-            help = "The policy keys to be used"
+        "--policy_keys"
+            help = "The policy keys to be used."
             arg_type = Vector{String}
             eval_arg = true
             default = ["DESPOT_defaultPolicy", "DESPOT_analyticBounds",
                        "POMCPOW_rolloutEstimate", "POMCPOW_analyticValueEstimate",
                        "MostLikelyStateController"]
+        "--fully_observed"
+            help = "Flag to indicate that a fully observed simulation is to be run."
+            action = :store_true
     end
 
     return parse_args(s)
