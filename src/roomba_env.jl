@@ -479,15 +479,31 @@ end
 render(m::RoombaModel, step; text::String="") = RoombaVis(m, step, text)
 
 function Base.show(io::IO, mime::Union{MIME"text/html", MIME"image/svg+xml"}, v::RoombaVis)
-    c = CairoSVGSurface(io, 800, 600)
+    dimensions = (800, 600)
+    c = CairoSVGSurface(io, dimensions...)
     ctx = CairoContext(c)
+
+    # render background
+    set_source_rgba(ctx, 1, 1, 1, 1)
+    rectangle(ctx, 0, 0, dimensions...)
+    fill(ctx)
+    set_source_rgba(ctx, 0, 0, 0, 1)
+
     render(ctx, v.m, v.step)
     finish(c)
 end
 
 function Base.show(io::IO, mime::MIME"image/png", v::RoombaVis)
-    c = CairoRGBSurface(800, 600)
+    dimensions = (800, 600)
+    c = CairoRGBSurface(dimensions...)
     ctx = CairoContext(c)
+
+    # render background
+    set_source_rgba(ctx, 1, 1, 1, 1)
+    rectangle(ctx, 0, 0, dimensions...)
+    fill(ctx)
+    set_source_rgba(ctx, 0, 0, 0, 1)
+
     render(ctx, v.m, v.step)
     # finish(c) # doesn't work with this; I wonder why
     write_to_png(c, io)
