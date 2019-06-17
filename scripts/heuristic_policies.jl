@@ -1,10 +1,10 @@
 import POMDPs: action
 
 struct FirstUp <: Policy
-    m::RoombaPOMDP
+    m::RoombaModel
     speed::Float64
 end
-FirstUp(m::RoombaPOMDP, default_action::RoombaAct) = FirstUp(m, default_action.v)
+FirstUp(m::RoombaModel, default_action::RoombaAct) = FirstUp(m, default_action.v)
 
 # the fully observable version of the first up policy
 function POMDPs.action(p::FirstUp, s::RoombaState)

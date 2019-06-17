@@ -57,9 +57,10 @@ function main()
     parsed_args = parse_commandline()
     runs = parsed_args["runs"]
     policy_keys = parsed_args["policy_keys"]
+    fully_observed = parsed_args["fully_observed"]
 
     @info "Running simulations..."
-    data = parallel_sim(runs, policy_keys)
+    data = parallel_sim(runs, policy_keys; fully_observed=fully_observed)
     @info "Writing data..."
     result_dir = realpath("$(@__DIR__)/../results/")
     filename = "sim_results-$(runs)-$(now())-$(join(policy_keys, "_"))-$(gethostname()).csv"

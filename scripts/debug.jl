@@ -14,7 +14,7 @@ function debug(data::DataFrame, row_id::Int)
     debug(sim)
 end
 
-function debug(policy_key::String, i_run::Int)
-    sim = setup_sim(policy_key, i_run)
+function debug(args...; kwargs...)
+    sim = setup_sim(args...; kwargs...)
     debug(sim)
 end
