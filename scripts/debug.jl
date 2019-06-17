@@ -15,6 +15,6 @@ function debug(data::DataFrame, row_id::Int)
 end
 
 function debug(args...; kwargs...)
-    sim = setup_sim(args...; kwargs...)
+    @time sim = setup_sim(args...; kwargs...)
     debug(sim)
 end
