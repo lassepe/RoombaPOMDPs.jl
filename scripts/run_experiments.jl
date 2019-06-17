@@ -66,7 +66,7 @@ function main()
     data = parallel_sim(runs, policy_keys; fully_observed=fully_observed)
     @info "Writing data..."
     result_dir = realpath("$(@__DIR__)/../results/")
-    filename = "sim_results-$(runs)-$(now())-$(join(policy_keys, "_"))-$(gethostname()).csv"
+    filename = "sim_results-$(runs)-$(now())-$(join(policy_keys, "_"))$(fully_observed ? "-FULLY_OBSERVED" : "")-$(gethostname()).csv"
     file = CSV.write(joinpath(result_dir, filename), data)
     @info "All done! Results written to: $file."
 end
