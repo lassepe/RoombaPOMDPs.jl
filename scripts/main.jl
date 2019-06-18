@@ -10,7 +10,7 @@ using MCTS
 using POMDPs
 using POMDPSimulators
 
-include("$(@__DIR__)/value_estimates.jl")
+include("$(@__DIR__)/domain_knowledge.jl")
 include("$(@__DIR__)/utils.jl")
 include("$(@__DIR__)/ml_heuristic_policies.jl")
 # Interesting example:

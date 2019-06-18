@@ -1,6 +1,7 @@
+using AA228FinalProject
 import POMDPs: action
 
-include("$(@__DIR__)/value_estimates.jl")
+include("$(@__DIR__)/domain_knowledge.jl")
 include("$(@__DIR__)/roomba_search.jl")
 
 struct FirstUp <: Policy
