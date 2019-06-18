@@ -4,7 +4,7 @@ using DataFrames
 include("$(@__DIR__)/main.jl")
 
 function debug(sim::Sim)
-    hist = simulate(sim)
+    @time hist = simulate(sim)
     makegif(problem(sim), hist; filename="$(@__DIR__)/../gifs/debug.gif")
 end
 
@@ -15,6 +15,6 @@ function debug(data::DataFrame, row_id::Int)
 end
 
 function debug(args...; kwargs...)
-    @time sim = setup_sim(args...; kwargs...)
+    sim = setup_sim(args...; kwargs...)
     debug(sim)
 end
