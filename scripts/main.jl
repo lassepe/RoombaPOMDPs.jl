@@ -50,6 +50,26 @@ function policy_map(m::RoombaModel, default_action::RoombaAct, rng::AbstractRNG,
                                k_observation=5, alpha_observation=1/30, enable_action_pw=false, check_repeat_obs=true,
                                check_repeat_act=true, estimate_value=value_estimate, rng=copy(rng))
         return solve(solver, m)
+    elseif key == "POMCPOW_searchValueEstimate"
+        @assert m isa RoombaPOMDP
+        # POMCPOW setup with search value estimate
+        solver = POMCPOWSolver(default_action=default_action,
+                               tree_queries=100000,
+                               max_time=1,
+                               max_depth=100, criterion=MaxUCB(20),
+                               k_observation=5, alpha_observation=1/30, enable_action_pw=false, check_repeat_obs=true,
+                               check_repeat_act=true, estimate_value=search_value_estimate, rng=copy(rng))
+        return solve(solver, m)
+    elseif key == "POMCPOW_smarterRolloutEstimate"
+        @assert m isa RoombaPOMDP
+        # POMCPOW setup with default policy rollout for value estimate
+        solver = POMCPOWSolver(default_action=default_action,
+                               tree_queries=100000,
+                               max_time=1,
+                               max_depth=100, criterion=MaxUCB(20),
+                               k_observation=5, alpha_observation=1/30, enable_action_pw=false, check_repeat_obs=true,
+                               check_repeat_act=true, estimate_value=FORollout(FirstUp(mdp(m), default_action)), rng=copy(rng))
+        return solve(solver, m)
     elseif key == "MostLikelyStateController"
         # Mode controlled heuristic policy
         return FirstUp(mdp(m), default_action)
