@@ -1,11 +1,11 @@
 using DataFrames
 using DataFramesMeta
-using Gadfly
+using Gadfly, Cairo, Fontconfig
 using CSV
 using Statistics
 
 function plot_results(data::DataFrame)
-	Gadfly.set_default_plot_size(30cm,30cm)
+	Gadfly.set_default_plot_size(40cm,30cm)
 	detailed_theme = Gadfly.Theme(major_label_font_size=8pt, minor_label_font_size=8pt, key_position=:none)
 
     # Collect some statistics. One row per policy key
@@ -23,15 +23,15 @@ function plot_results(data::DataFrame)
 
     # violin plot for reward distribution
     value_violin_plot = plot(data, x=:policy_key, y=:undiscounted_reward, color=:policy_key, Geom.violin, detailed_theme)
-    nsteps_violin_plot = plot(data, x=:policy_key, y=:n_steps, color=:policy_key, Geom.violin, detailed_theme)
+    nsteps_violin_plot = plot(data, x=:policy_key, y=:n_steps, color=:policy_key, Geom.boxplot, detailed_theme)
 
     # historgram over success
     final_state_type_plot = plot(data, xgroup=:policy_key, x=:final_state_type,
                                  color=:policy_key,
                                  Geom.subplot_grid(Geom.histogram), detailed_theme)
 
-    display(vstack(value_errorbar_plot,
-                   value_violin_plot,
-                   nsteps_violin_plot,
-                   final_state_type_plot))
+    vstack(value_errorbar_plot,
+           value_violin_plot,
+           nsteps_violin_plot,
+           final_state_type_plot)
 end

@@ -288,6 +288,12 @@ git-tree-sha1 = "d14a6fa5890ea3a7e5dcab6811114f132fec2b4b"
 uuid = "53c48c17-4a7d-5ca2-90c5-79b7896eea93"
 version = "0.6.1"
 
+[[Fontconfig]]
+deps = ["BinDeps", "Compat", "Homebrew", "Libdl", "WinRPM"]
+git-tree-sha1 = "d1fd629ca493abd85cde2ee59e60bceb4146f113"
+uuid = "186bb1d3-e1f7-5a2c-a377-96d770f13627"
+version = "0.2.0"
+
 [[ForwardDiff]]
 deps = ["CommonSubexpressions", "DiffResults", "DiffRules", "InteractiveUtils", "LinearAlgebra", "NaNMath", "Random", "SparseArrays", "SpecialFunctions", "StaticArrays", "Test"]
 git-tree-sha1 = "4c4d727f1b7e0092134fabfab6396b8945c1ea5b"
@@ -314,7 +320,7 @@ version = "1.2.0"
 
 [[GraphSearchZero]]
 deps = ["DataStructures"]
-git-tree-sha1 = "72c5dcdec8693a3675b481ff2c5c1cc806ae22d9"
+git-tree-sha1 = "eef5f310d451448209f44fb95dbd75fed8bc3466"
 repo-rev = "master"
 repo-url = "https://github.com/lassepe/GraphSearchZero.jl"
 uuid = "fb53e0a2-6b86-11e9-00f0-4309d342e282"
@@ -815,9 +821,9 @@ version = "1.0.0"
 
 [[Tables]]
 deps = ["IteratorInterfaceExtensions", "LinearAlgebra", "Requires", "TableTraits", "Test"]
-git-tree-sha1 = "351a4b894122e1553c6ed05fda54086ab036adef"
+git-tree-sha1 = "c328ce4519e2c1ec7368e6ce98a5f916ecf230a8"
 uuid = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
-version = "0.2.5"
+version = "0.2.6"
 
 [[Test]]
 deps = ["Distributed", "InteractiveUtils", "Logging", "Random"]
@@ -855,9 +861,9 @@ version = "1.1.3"
 
 [[VideoIO]]
 deps = ["BinaryProvider", "ColorTypes", "Dates", "FileIO", "FixedPointNumbers", "Glob", "ImageCore", "ImageTransformations", "Libdl", "ProgressMeter", "Requires", "StatsBase"]
-git-tree-sha1 = "384f53a1e3fb31525091c7d611335e2f4b1ea5df"
+git-tree-sha1 = "60419040e0b457b6f5ef69158198ad8fa69d1b48"
 uuid = "d6d074c3-1acf-5d4c-9a43-ef38773959a2"
-version = "0.6.5"
+version = "0.6.6"
 
 [[WeakRefStrings]]
 deps = ["Random", "Test"]
