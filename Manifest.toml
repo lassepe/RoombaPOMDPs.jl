@@ -425,6 +425,12 @@ git-tree-sha1 = "c1048817fe5711f699abc8fabd47b1ac6ba4db04"
 uuid = "5ab0869b-81aa-558d-bb23-cbf5423bbe9b"
 version = "0.5.1"
 
+[[LaTeXStrings]]
+deps = ["Compat"]
+git-tree-sha1 = "7ab9b8788cfab2bdde22adf9004bda7ad9954b6c"
+uuid = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
+version = "1.0.3"
+
 [[LibCURL]]
 deps = ["BinaryProvider", "Libdl"]
 git-tree-sha1 = "5ee138c679fa202ebe211b2683d1eee2a87b3dbe"
