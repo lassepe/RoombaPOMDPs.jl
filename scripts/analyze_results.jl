@@ -11,10 +11,13 @@ function plot_results(data::DataFrame;
                       show_nsteps::Bool=true, show_fst::Bool=true)
 
     legend_guide = Guide.colorkey(title="Legend")
+    xticks_guide = Guide.xticks(orientation=:horizontal)
     default_font = "cmr10"
 
     plot_stack = []
-    default_theme = Gadfly.Theme(key_title_font=default_font,
+    default_theme = Gadfly.Theme(key_max_columns=6,
+                                 plot_padding=[0mm],
+                                 key_title_font=default_font,
                                  key_label_font=default_font,
                                  major_label_font=default_font,
                                  minor_label_font=default_font,
@@ -43,7 +46,7 @@ function plot_results(data::DataFrame;
         value_errorbar_plot = plot(x=df_stats.policy_key, y=df_stats.MeanValue,
                                    ymin=(df_stats.MeanValue - df_stats.SEMValue), ymax=(df_stats.MeanValue + df_stats.SEMValue),
                                    color=df_stats.policy_key, Geom.point, Geom.errorbar, Guide.xlabel("Policy"), Guide.ylabel("Cumulative Discounted Reward (SEM)", orientation=:vertical),
-                                   legend_guide)
+                                   legend_guide, xticks_guide)
         push!(plot_stack, value_errorbar_plot)
         Gadfly.pop_theme()
     end
@@ -51,7 +54,8 @@ function plot_results(data::DataFrame;
     if show_value_violin
         # violin plot for reward distribution
         value_violin_plot = plot(data, x=:policy_key, y=reward_type, color=:policy_key, Geom.violin,
-                                 Guide.xlabel("Policy"), Guide.ylabel("Cumulative Discounted Reward (PDF)", orientation=:vertical))
+                                 Guide.xlabel("Policy"), Guide.ylabel("Cumulative Discounted Reward (PDF)", orientation=:vertical),
+                                 legend_guide, xticks_guide)
         push!(plot_stack, value_violin_plot)
         Gadfly.pop_theme()
     end
