@@ -11,10 +11,10 @@ function plot_results(data::DataFrame;
     plot_stack = []
 
 	Gadfly.set_default_plot_size(40cm,30cm)
-    detailed_theme = Gadfly.Theme(major_label_font="CMU Serif",
-                                  minor_label_font="CMU Serif",
+    detailed_theme = Gadfly.Theme(major_label_font="cmr10",
+                                  minor_label_font="cmr10",
                                   major_label_font_size=12pt,
-                                  minor_label_font_size=12pt, key_position=:none)
+                                  minor_label_font_size=0pt, key_position=:none)
 
     # Collect some statistics. One row per policy key
 	df_stats = DataFrame(policy_key=String[], MeanValue=Float64[], SEMValue=Float64[])

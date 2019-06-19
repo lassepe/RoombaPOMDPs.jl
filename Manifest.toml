@@ -306,7 +306,7 @@ uuid = "9fa8497b-333b-5362-9e8d-4d0656e87820"
 
 [[Gadfly]]
 deps = ["Base64", "CategoricalArrays", "Colors", "Compat", "Compose", "Contour", "CoupledFields", "DataStructures", "Dates", "Distributions", "DocStringExtensions", "Hexagons", "IndirectArrays", "IterTools", "JSON", "Juno", "KernelDensity", "LinearAlgebra", "Loess", "Measures", "Printf", "Random", "Requires", "Showoff", "Statistics"]
-git-tree-sha1 = "f63603aa784fd8b4da7f9a581009197c396d0199"
+git-tree-sha1 = "402dd8161f3ffba716719e2cde8fe8dbb3e8adb4"
 repo-rev = "master"
 repo-url = "https://github.com/GiovineItalia/Gadfly.jl.git"
 uuid = "c91e804a-d5a3-530f-b6f0-dfbca275c004"
