@@ -18,6 +18,7 @@ function plot_results(data::DataFrame;
     default_theme = Gadfly.Theme(key_max_columns=6,
                                  plot_padding=[0mm],
                                  key_title_font=default_font,
+                                 key_title_font_size=0mm,
                                  key_label_font=default_font,
                                  major_label_font=default_font,
                                  minor_label_font=default_font,
