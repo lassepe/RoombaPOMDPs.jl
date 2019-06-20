@@ -3,7 +3,8 @@ gifs/*
 
 results/*
 !results/.gitkeep
-!results/final_results/*
+!results/final_results/*.csv
+!results/final_results/plots/.gitkeep
 
 bash_scripts/savio_config/*
 !bash_scripts/savio_config/.gitkeep
