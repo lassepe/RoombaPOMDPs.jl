@@ -5,7 +5,7 @@ include("$(@__DIR__)/main.jl")
 
 function debug(sim::Sim)
     @time hist = simulate(sim)
-    makegif(problem(sim), hist; filename="$(@__DIR__)/../gifs/debug.gif")
+    makegif(problem(sim), hist; filename="$(@__DIR__)/../gifs/debug.gif", fps=10)
 end
 
 function debug(data::DataFrame, row_id::Int)
