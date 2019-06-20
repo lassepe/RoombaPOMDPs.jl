@@ -1,4 +1,5 @@
 using AA228FinalProject
+using POMDPs
 import POMDPs: action
 
 include("$(@__DIR__)/domain_knowledge.jl")
@@ -59,4 +60,4 @@ end
 
 # the partially observable version of the policy controlling the robot
 # based on the most likely state in the belief
-POMDPs.action(p::Policy, b::AbstractParticleBelief) = POMDPs.action(p, mode(b))
+POMDPs.action(p::Union{FirstUp, MLMPC}, b::AbstractParticleBelief) = POMDPs.action(p, mode(b))
