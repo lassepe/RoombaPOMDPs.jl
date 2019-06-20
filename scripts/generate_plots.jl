@@ -6,7 +6,8 @@ rename(s::String, old::String="MostLikelyStateController", new::String="MLRA") =
 
 function create_eval_plot(data=nothing; filename::String="$(@__DIR__)/../results/final_results/data_eval_final.csv",
                           outdir::String="$(@__DIR__)/../results/final_results/plots/",
-                          dims=(14.5cm, 10cm))
+                          dims=(14.5cm, 10cm),
+                          reward_type::Symbol=:inf_discounted_reward)
     if isnothing(data)
         data = CSV.read(filename)
     end
@@ -14,17 +15,17 @@ function create_eval_plot(data=nothing; filename::String="$(@__DIR__)/../results
     # value SEM
     dims = (14.5cm, 10cm)
     p = plot_results(data, show_nsteps=false, show_fst=false, show_value_violin=false)
-    draw(PDF(joinpath(outdir, "lp_value_sem_eval_plot.pdf"), dims...), p)
+    draw(PDF(joinpath(outdir, "lp_value_sem_eval_plot-$(reward_type).pdf"), dims...), p)
 
     # value violin
     dims = (14.5cm, 10cm)
     p = plot_results(data, show_nsteps=false, show_fst=false, show_value_sem=false)
-    draw(PDF(joinpath(outdir, "lp_value_violin_eval_plot.pdf"), dims...), p)
+    draw(PDF(joinpath(outdir, "lp_value_violin_eval_plot-$(reward_type).pdf"), dims...), p)
 
     # combined:
     dims = (14.5cm, 21cm)
     p = plot_results(data, show_nsteps=false, show_fst=false)
-    draw(PDF(joinpath(outdir, "lp_value_eval_plot.pdf"), dims...), p)
+    draw(PDF(joinpath(outdir, "lp_value_eval_plot-$(reward_type).pdf"), dims...), p)
 end
 
 # Renaming:

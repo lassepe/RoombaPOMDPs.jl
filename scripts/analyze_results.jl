@@ -6,7 +6,7 @@ using Statistics
 using LaTeXStrings
 
 function plot_results(data::DataFrame;
-                      reward_type::Symbol=:discounted_reward,
+                      reward_type::Symbol=:inf_discounted_reward,
                       show_value_sem::Bool=true, show_value_violin::Bool=true,
                       show_nsteps::Bool=true, show_fst::Bool=true)
 
