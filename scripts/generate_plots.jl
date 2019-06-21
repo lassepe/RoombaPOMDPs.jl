@@ -22,6 +22,11 @@ function create_eval_plot(data=nothing; filename::String="$(@__DIR__)/../results
     p = plot_results(data, show_nsteps=false, show_fst=false, show_value_sem=false, reward_type=reward_type)
     draw(PDF(joinpath(outdir, "lp_value_violin_eval_plot-$(reward_type).pdf"), dims...), p)
 
+    # outcome histogram
+    dims = (14.5cm, 8cm)
+    p = plot_results(data, show_nsteps=false, show_fst=true, show_value_violin=false, show_value_sem=false, reward_type=reward_type)
+    draw(PDF(joinpath(outdir, "lp_outcome_eval_plot.pdf"), dims...), p)
+
     # combined:
     dims = (14.5cm, 21cm)
     p = plot_results(data, show_nsteps=false, show_fst=false, reward_type=reward_type )
@@ -36,4 +41,7 @@ end
 # d = @transform(d, policy_key=rename.(:policy_key, "DESPOT_analyticBounds", "DESPOT\nanalytic"))
 # d = @transform(d, policy_key=rename.(:policy_key, "POMCPOW_rolloutEstimate", "POMCPOW\nrollout"))
 # d = @transform(d, policy_key=rename.(:policy_key, "POMCPOW_analyticValueEstimate", "POMCPOW\nanalytic"))
+# d = @transform(d, final_state_type=rename.(:final_state_type, "success", "+"))
+# d = @transform(d, final_state_type=rename.(:final_state_type, "failure", "-"))
+# d = @transform(d, final_state_type=rename.(:final_state_type, "nonterminal", "0"))
 # d = CSV.write("results/final_results/data_eval_final.csv", d)
