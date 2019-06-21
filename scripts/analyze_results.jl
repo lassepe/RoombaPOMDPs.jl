@@ -1,6 +1,6 @@
 using DataFrames
 using DataFramesMeta
-using Gadfly
+using Gadfly, Compose
 using CSV
 using Statistics
 using LaTeXStrings
@@ -24,7 +24,7 @@ function plot_results(data::DataFrame;
                                  key_label_font=default_font,
                                  major_label_font=default_font,
                                  minor_label_font=default_font,
-                                 major_label_font_size=8pt,
+                                 major_label_font_size=10pt,
                                  minor_label_font_size=8pt, key_position=:none)
 
     # and some more for the remaining plots
@@ -35,6 +35,9 @@ function plot_results(data::DataFrame;
     first_plot_theme = copy(default_theme)
     first_plot_theme.key_position=:top
     Gadfly.push_theme(first_plot_theme)
+
+    fst_theme = copy(first_plot_theme)
+    fst_theme.major_label_font_size=8pt
 
 
     # Collect some statistics. One row per policy key
@@ -74,6 +77,7 @@ function plot_results(data::DataFrame;
         final_state_type_plot = plot(data, xgroup=:policy_key, x=:final_state_type,
                                      color=:policy_key,
                                      Geom.subplot_grid(Guide.xticks(orientation=:horizontal), Geom.histogram),
+                                     fst_theme,
                                      Guide.xlabel("Outcome 𝐛𝐲 Policy"))
         push!(plot_stack, final_state_type_plot)
         Gadfly.pop_theme()
