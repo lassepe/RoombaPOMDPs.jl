@@ -5,6 +5,7 @@ results/*
 !results/.gitkeep
 !results/final_results/*.csv
 !results/final_results/plots/.gitkeep
+!results/final_results/plots/fo/.gitkeep
 
 bash_scripts/savio_config/*
 !bash_scripts/savio_config/.gitkeep
