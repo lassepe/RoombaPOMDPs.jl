@@ -454,7 +454,7 @@ function render(ctx::CairoContext, m::RoombaModel, step)
     # Find center of robot in frame and draw circle
     x, y = transform_coords(state[1:2])
     arc(ctx, x, y, radius, 0, 2*pi)
-    set_source_rgb(ctx, 1, 0.6, 0.6)
+    set_source_rgb(ctx, 1, 0.0, 0.0)
     fill(ctx)
 
     # Draw line indicating orientation
@@ -479,7 +479,7 @@ end
 render(m::RoombaModel, step; text::String="") = RoombaVis(m, step, text)
 
 function Base.show(io::IO, mime::Union{MIME"text/html", MIME"image/svg+xml"}, v::RoombaVis)
-    dimensions = (800, 600)
+    dimensions = (600, 600)
     c = CairoSVGSurface(io, dimensions...)
     ctx = CairoContext(c)
 
@@ -494,7 +494,7 @@ function Base.show(io::IO, mime::Union{MIME"text/html", MIME"image/svg+xml"}, v:
 end
 
 function Base.show(io::IO, mime::MIME"image/png", v::RoombaVis)
-    dimensions = (800, 600)
+    dimensions = (600, 390)
     c = CairoRGBSurface(dimensions...)
     ctx = CairoContext(c)
 
